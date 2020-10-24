@@ -1,7 +1,6 @@
 using ConferencePlanner.GraphQL.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +12,10 @@ namespace ConferencePlanner.GraphQL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=conferences.db"));
+            
+            services
+                .AddGraphQLServer()
+                .AddQueryType<Query>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -26,10 +29,7 @@ namespace ConferencePlanner.GraphQL
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapGraphQL();
             });
         }
     }
