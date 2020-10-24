@@ -1,5 +1,8 @@
 using ConferencePlanner.GraphQL.Data;
 using ConferencePlanner.GraphQL.DataLoader;
+using ConferencePlanner.GraphQL.Sessions;
+using ConferencePlanner.GraphQL.Speakers;
+using ConferencePlanner.GraphQL.Tracks;
 using ConferencePlanner.GraphQL.Types;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Voyager;
@@ -19,11 +22,21 @@ namespace ConferencePlanner.GraphQL
 
             services
                 .AddGraphQLServer()
-                .AddQueryType<Query>()
-                .AddMutationType<Mutation>()
+                .AddQueryType(d => d.Name("Query"))
+                    .AddType<SessionQueries>()
+                    .AddTypeExtension<SpeakerQueries>()
+                    .AddType<TrackQueries>()
+                .AddMutationType(d => d.Name("Mutation"))
+                    .AddTypeExtension<SessionMutations>()
+                    .AddTypeExtension<SpeakerMutations>()
+                    .AddTypeExtension<TrackMutations>()
+                .AddType<AttendeeType>()
+                .AddType<SessionType>()
                 .AddType<SpeakerType>()
+                .AddType<TrackType>()
+                .EnableRelaySupport()
                 .AddDataLoader<SpeakerByIdDataLoader>()
-                .AddDataLoader<SessionByIdDataLoader>();;
+                .AddDataLoader<SessionByIdDataLoader>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
