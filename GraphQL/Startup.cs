@@ -1,4 +1,6 @@
 using ConferencePlanner.GraphQL.Data;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,9 @@ namespace ConferencePlanner.GraphQL
             }
 
             app.UseRouting();
+            
+            app.UsePlayground();
+            app.UseVoyager();
 
             app.UseEndpoints(endpoints =>
             {
