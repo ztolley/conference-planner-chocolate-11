@@ -14,10 +14,11 @@ namespace ConferencePlanner.GraphQL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=conferences.db"));
-            
+
             services
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()
+                .AddMutationType<Mutation>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
