@@ -1,0 +1,12 @@
+﻿{
+  "data": {
+    "addSpeaker": {
+      "speaker": {
+        "id": "U3BlYWtlcgppMQ==",
+        "name": "Dolly Smith",
+        "bio": "Folly is really cool",
+        "webSite": "http://dolly.com"
+      }
+    }
+  }
+}
